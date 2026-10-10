@@ -1,0 +1,124 @@
+
+> microlend@1.0.0 coverage
+> cross-env COVERAGE=true hardhat coverage
+
+
+Version
+=======
+> solidity-coverage: v0.8.17
+
+Instrumenting for coverage...
+=============================
+
+> CollateralVault.sol
+> CreditRegistry.sol
+> interfaces/ICollateralVault.sol
+> interfaces/ICreditRegistry.sol
+> interfaces/ILendingPool.sol
+> LendingPool.sol
+> LoanManager.sol
+> MockStablecoin.sol
+
+Compilation:
+============
+
+Compiled 32 Solidity files successfully (evm target: paris).
+
+Network Info
+============
+> HardhatEVM: v2.29.1
+> network:    hardhat
+
+
+
+  CreditRegistry
+    ✔ treats unscored wallets as tier 0 (starter terms) (212ms)
+    ✔ maps attested scores to the right tiers (80ms)
+    ✔ only SCORER_ROLE can submit scores directly
+    ✔ rejects out-of-range scores and bad expiries
+    ✔ falls back to tier 0 once the attestation expires
+    EIP-712 signed attestations
+      ✔ accepts a scorer signature submitted by the borrower and consumes the nonce
+      ✔ cannot be replayed
+      ✔ rejects signatures from wallets without SCORER_ROLE and tampered scores
+    history bonus (progressive credit)
+      ✔ on-time repayment raises the effective score and is written to the profile (115ms)
+      ✔ only the LoanManager may write loan outcomes
+    admin controls
+      ✔ admin can block / unblock a borrower
+      ✔ admin can retune tiers but not break their ordering
+
+  LendingPool
+    deposits and withdrawals
+      ✔ first deposit mints shares 1:1 minus the permanently locked minimum
+      ✔ second depositor gets shares at the current price (43ms)
+      ✔ withdraw burns shares and pays out the proportional assets
+      ✔ rejects zero amounts, zero shares and over-withdrawals
+      ✔ cannot withdraw cash that is currently lent out (114ms)
+    access control and safety
+      ✔ only the LoanManager role can disburse, record repayments and losses
+      ✔ recordRepayment refuses to book principal or interest the pool does not hold
+      ✔ pause blocks deposits but not withdrawals (48ms)
+      ✔ enforces the utilization cap (140ms)
+    reserve and interest
+      ✔ repayment grows lender value and diverts reserveBps of the interest to the reserve (132ms)
+      ✔ admin can fund the reserve; others cannot
+      ✔ validates reserve and utilization parameters
+
+  LoanManager
+    happy path: apply -> approve -> collateral -> disburse -> repay
+      ✔ runs the full lifecycle and keeps all four contracts consistent (346ms)
+      ✔ unscored borrowers get starter terms: 100 limit, 24% APR, 20% collateral (38ms)
+      ✔ tier 3 borrowers need no collateral (62ms)
+      ✔ late repayment inside the grace period is accepted but not counted as on-time (115ms)
+    progressive credit
+      ✔ one on-time loan unlocks a bigger limit and less collateral without a new score (143ms)
+    validation and access control
+      ✔ rejects bad terms and a second open loan (53ms)
+      ✔ blocked borrowers cannot apply
+      ✔ only officers approve/reject; approvals can be smaller but never larger than requested (62ms)
+      ✔ officers cannot approve their own application
+      ✔ rejection frees the borrower slot (38ms)
+      ✔ cancelling after posting collateral refunds it (67ms)
+      ✔ cancel is borrower-only
+      ✔ disburse needs collateral and an authorised caller; officers may disburse for the borrower (65ms)
+      ✔ approvals expire after 7 days but can still be cancelled (39ms)
+      ✔ only the borrower can repay, amounts must be positive, and only active loans can be repaid (93ms)
+      ✔ unknown loan ids revert
+    pausing
+      ✔ pause stops new business but never blocks repayment (126ms)
+    audit trail
+      ✔ auditors can attach notes to existing loans; nobody else can
+    default and the loss waterfall (collateral -> reserve -> lenders)
+      ✔ cannot be declared before due + grace; afterwards anyone can do it (148ms)
+      ✔ collateral first, then reserve, then lenders share the remaining loss (156ms)
+      ✔ surplus collateral goes back to the borrower after a partly repaid loan defaults (126ms)
+      ✔ an uncollateralised tier-3 default is absorbed by the reserve first (100ms)
+    bookkeeping invariants
+      ✔ vault balance equals totalLocked and pool balance equals reserve + lender cash across many loans (172ms)
+
+  MockStablecoin (test token)
+    ✔ has 6 decimals and only the owner can mint
+    ✔ faucet pays 1,000 mUSDC and enforces a one-hour cooldown per wallet
+
+
+  49 passing (3s)
+
+-----------------------|----------|----------|----------|----------|----------------|
+File                   |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-----------------------|----------|----------|----------|----------|----------------|
+ contracts/            |    97.13 |    75.94 |    96.72 |    98.31 |                |
+  CollateralVault.sol  |      100 |    58.33 |      100 |      100 |                |
+  CreditRegistry.sol   |      100 |    79.55 |      100 |      100 |                |
+  LendingPool.sol      |    92.31 |    69.51 |       95 |    94.44 |169,170,208,209 |
+  LoanManager.sol      |    97.89 |    82.14 |       95 |    99.22 |            356 |
+  MockStablecoin.sol   |      100 |      100 |      100 |      100 |                |
+ contracts/interfaces/ |      100 |      100 |      100 |      100 |                |
+  ICollateralVault.sol |      100 |      100 |      100 |      100 |                |
+  ICreditRegistry.sol  |      100 |      100 |      100 |      100 |                |
+  ILendingPool.sol     |      100 |      100 |      100 |      100 |                |
+-----------------------|----------|----------|----------|----------|----------------|
+All files              |    97.13 |    75.94 |    96.72 |    98.31 |                |
+-----------------------|----------|----------|----------|----------|----------------|
+
+> Istanbul reports written to ./coverage/ and ./coverage.json

@@ -1,0 +1,137 @@
+{
+  "data": "synthetic (see ml/train_model.py::simulate)",
+  "n_total": 20000,
+  "n_train": 14000,
+  "n_test": 6000,
+  "portfolio_default_rate": 0.0832,
+  "test": {
+    "auc": 0.6807,
+    "ks": 0.2653,
+    "brier": 0.073
+  },
+  "score_summary": {
+    "min": 338,
+    "p10": 505,
+    "median": 609,
+    "p90": 711,
+    "max": 900
+  },
+  "calibration_deciles": [
+    {
+      "d": 0,
+      "mean_pred": 0.0222,
+      "observed": 0.0167,
+      "n": 600
+    },
+    {
+      "d": 1,
+      "mean_pred": 0.0349,
+      "observed": 0.045,
+      "n": 600
+    },
+    {
+      "d": 2,
+      "mean_pred": 0.0442,
+      "observed": 0.0483,
+      "n": 600
+    },
+    {
+      "d": 3,
+      "mean_pred": 0.0532,
+      "observed": 0.0633,
+      "n": 600
+    },
+    {
+      "d": 4,
+      "mean_pred": 0.0628,
+      "observed": 0.0633,
+      "n": 600
+    },
+    {
+      "d": 5,
+      "mean_pred": 0.0746,
+      "observed": 0.0667,
+      "n": 600
+    },
+    {
+      "d": 6,
+      "mean_pred": 0.0885,
+      "observed": 0.0833,
+      "n": 600
+    },
+    {
+      "d": 7,
+      "mean_pred": 0.1071,
+      "observed": 0.115,
+      "n": 600
+    },
+    {
+      "d": 8,
+      "mean_pred": 0.1339,
+      "observed": 0.1017,
+      "n": 600
+    },
+    {
+      "d": 9,
+      "mean_pred": 0.204,
+      "observed": 0.2283,
+      "n": 600
+    }
+  ],
+  "tiers": [
+    {
+      "tier": 0,
+      "share": 0.0247,
+      "default_rate": 0.3176,
+      "n": 148
+    },
+    {
+      "tier": 1,
+      "share": 0.4325,
+      "default_rate": 0.1156,
+      "n": 2595
+    },
+    {
+      "tier": 2,
+      "share": 0.5045,
+      "default_rate": 0.0496,
+      "n": 3027
+    },
+    {
+      "tier": 3,
+      "share": 0.0383,
+      "default_rate": 0.0087,
+      "n": 230
+    }
+  ],
+  "fairness": {
+    "female": {
+      "approval_rate_group1": 0.9759,
+      "approval_rate_group0": 0.9748,
+      "disparate_impact_ratio": 0.9989,
+      "auc_group1": 0.6901,
+      "auc_group0": 0.672,
+      "observed_default_group1": 0.0833,
+      "observed_default_group0": 0.0831,
+      "mean_pred_default_group1": 0.0806,
+      "mean_pred_default_group0": 0.0846
+    },
+    "rural": {
+      "approval_rate_group1": 0.9599,
+      "approval_rate_group0": 0.9875,
+      "disparate_impact_ratio": 0.972,
+      "auc_group1": 0.6815,
+      "auc_group0": 0.6763,
+      "observed_default_group1": 0.0912,
+      "observed_default_group0": 0.0768,
+      "mean_pred_default_group1": 0.0962,
+      "mean_pred_default_group0": 0.0718
+    }
+  },
+  "limitations": [
+    "Synthetic data: figures show the method, not real-world accuracy.",
+    "Self-reported inputs can be misstated; an officer must verify before approval.",
+    "Linear model: easy to explain and audit, but cannot capture interactions.",
+    "Protected attributes are excluded, yet proxies (e.g. region) can still produce group differences."
+  ]
+}

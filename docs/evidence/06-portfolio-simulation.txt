@@ -1,0 +1,42 @@
+{
+  "breakeven_default_rate": {
+    "tiered": 0.0703,
+    "flat": 0.0537
+  }
+}
+
+tiered
+  default  0.5%  return   12.5%  P(loss)   0.0%  avgAPR 16.3%  loss/prin 0.26%
+  default  1.0%  return   12.5%  P(loss)   0.0%  avgAPR 16.3%  loss/prin 0.58%
+  default  2.0%  return   12.4%  P(loss)   0.0%  avgAPR 16.3%  loss/prin 1.26%
+  default  3.0%  return   11.6%  P(loss)   0.0%  avgAPR 16.3%  loss/prin 2.02%
+  default  5.0%  return    5.6%  P(loss)   9.4%  avgAPR 16.3%  loss/prin 3.53%
+  default  8.5%  return   -4.1%  P(loss)  78.9%  avgAPR 16.3%  loss/prin 5.52%
+
+flat
+  default  0.5%  return   15.5%  P(loss)   0.0%  avgAPR 20.0%  loss/prin 0.34%
+  default  1.0%  return   15.5%  P(loss)   0.0%  avgAPR 20.0%  loss/prin 0.91%
+  default  2.0%  return   15.1%  P(loss)   0.0%  avgAPR 20.0%  loss/prin 1.81%
+  default  3.0%  return   12.5%  P(loss)   0.2%  avgAPR 20.0%  loss/prin 2.74%
+  default  5.0%  return    1.2%  P(loss)  38.2%  avgAPR 20.0%  loss/prin 5.04%
+  default  8.5%  return  -10.4%  P(loss)  98.5%  avgAPR 20.0%  loss/prin 7.56%
+
+initial (externally funded) reserve sweep @ 0.05
+  tiered initial reserve   0% of principal  return  -3.95%  P(loss)  86.7%
+  tiered initial reserve   1% of principal  return   0.83%  P(loss)  40.5%
+  tiered initial reserve   2% of principal  return   5.81%  P(loss)   8.0%
+  tiered initial reserve   5% of principal  return  12.44%  P(loss)   0.0%
+  flat   initial reserve   0% of principal  return  -8.03%  P(loss)  98.5%
+  flat   initial reserve   1% of principal  return  -3.46%  P(loss)  81.8%
+  flat   initial reserve   2% of principal  return   1.35%  P(loss)  36.3%
+  flat   initial reserve   5% of principal  return  14.24%  P(loss)   0.0%
+
+reserve-share-of-interest sweep @ 0.05
+  tiered reserve   0%  return   5.77%  P(loss)  10.6%
+  tiered reserve  10%  return   5.67%  P(loss)  11.0%
+  tiered reserve  20%  return   5.50%  P(loss)  11.0%
+  tiered reserve  30%  return   5.25%  P(loss)  11.1%
+  flat   reserve   0%  return   1.49%  P(loss)  36.0%
+  flat   reserve  10%  return   1.43%  P(loss)  36.0%
+  flat   reserve  20%  return   1.37%  P(loss)  36.2%
+  flat   reserve  30%  return   1.30%  P(loss)  36.7%

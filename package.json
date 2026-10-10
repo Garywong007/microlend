@@ -1,0 +1,35 @@
+{
+  "name": "microlend",
+  "version": "1.0.0",
+  "description": "MicroLend - tokenized micro-lending DApp for the unbanked (SC6113 group project)",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "setup": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "compile": "hardhat compile",
+    "build:contracts": "hardhat compile && node scripts/export-abi.js",
+    "test": "hardhat test",
+    "test:gas": "cross-env REPORT_GAS=true GAS_REPORT_FILE=docs/gas-report.txt hardhat test",
+    "coverage": "cross-env COVERAGE=true hardhat coverage",
+    "node": "hardhat node --port 8546",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "seed:local": "hardhat run scripts/seed.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "local:env": "node scripts/local-env.js",
+    "slither": "slither . --config-file slither.config.json",
+    "model:train": "python3 ml/train_model.py"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4",
+    "hardhat": "^2.22.17"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.0.2"
+  }
+}

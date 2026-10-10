@@ -1,0 +1,5 @@
+{
+  "filter_paths": "node_modules|test|contracts/MockStablecoin.sol",
+  "solc_remaps": ["@openzeppelin/=node_modules/@openzeppelin/"],
+  "detectors_to_exclude": "naming-convention,solc-version,timestamp"
+}

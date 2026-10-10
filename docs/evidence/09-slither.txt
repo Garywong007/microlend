@@ -1,0 +1,52 @@
+
+> microlend@1.0.0 slither
+> slither . --config-file slither.config.json
+
+'npx hardhat clean' running (wd: /home/catjlx/microlend)
+'npx hardhat clean --global' running (wd: /home/catjlx/microlend)
+'npx hardhat compile --force' running (wd: /home/catjlx/microlend)
+INFO:Detectors:
+Detector: incorrect-equality
+LendingPool.convertToAssets(uint256) (contracts/LendingPool.sol#223-225) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#224)
+LendingPool.convertToShares(uint256) (contracts/LendingPool.sol#217-221) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#218)
+LendingPool.convertToShares(uint256) (contracts/LendingPool.sol#217-221) uses a dangerous strict equality:
+	- la == 0 (contracts/LendingPool.sol#220)
+LendingPool.deposit(uint256) (contracts/LendingPool.sol#78-96) uses a dangerous strict equality:
+	- assetsBefore == 0 (contracts/LendingPool.sol#87)
+LendingPool.deposit(uint256) (contracts/LendingPool.sol#78-96) uses a dangerous strict equality:
+	- shares == 0 (contracts/LendingPool.sol#90)
+LendingPool.sharePrice() (contracts/LendingPool.sol#213-215) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#214)
+LendingPool.utilizationBps() (contracts/LendingPool.sol#207-210) uses a dangerous strict equality:
+	- la == 0 (contracts/LendingPool.sol#209)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+INFO:Detectors:
+Detector: reentrancy-benign
+Reentrancy in LoanManager.repay(uint256,uint256) (contracts/LoanManager.sol#224-247):
+	External calls:
+	- asset.safeTransferFrom(msg.sender,address(pool),amount) (contracts/LoanManager.sol#240)
+	- pool.recordRepayment(toPrincipal,toInterest) (contracts/LoanManager.sol#241)
+	- _closeRepaid(loanId,l) (contracts/LoanManager.sol#246)
+		- vault.release(loanId) (contracts/LoanManager.sol#391)
+		- registry.recordLoanClosed(l.borrower,l.principal,l.principalPaid + l.interestPaid,onTime,false) (contracts/LoanManager.sol#394)
+	State variables written after the call(s):
+	- _closeRepaid(loanId,l) (contracts/LoanManager.sol#246)
+		- openLoanOf[l.borrower] = 0 (contracts/LoanManager.sol#390)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+INFO:Detectors:
+Detector: reentrancy-events
+Reentrancy in CollateralVault.release(uint256) (contracts/CollateralVault.sol#66-73):
+	External calls:
+	- asset.safeTransfer(p.borrower,p.amount) (contracts/CollateralVault.sol#71)
+	Event emitted after the call(s):
+	- CollateralReleased(loanId,p.borrower,p.amount) (contracts/CollateralVault.sol#72)
+Reentrancy in CollateralVault.seize(uint256,uint256,address) (contracts/CollateralVault.sol#76-93):
+	External calls:
+	- asset.safeTransfer(to,seized) (contracts/CollateralVault.sol#90)
+	- asset.safeTransfer(p.borrower,remainder) (contracts/CollateralVault.sol#91)
+	Event emitted after the call(s):
+	- CollateralSeized(loanId,p.borrower,seized,remainder) (contracts/CollateralVault.sol#92)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+INFO:Slither:. analyzed (34 contracts with 99 detectors), 10 result(s) found

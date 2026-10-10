@@ -1,0 +1,14 @@
+
+> microlend@1.0.0 deploy:local
+> hardhat run scripts/deploy.js --network localhost
+
+Deploying to localhost as 0x58A57ed9d8d624cBD12e2C467D34787555bB1b25
+  MockStablecoin   0x252bFe6BA05B239912fE0F8f514b3564F40A7A96  (block 1)
+  CreditRegistry   0x0b46c36BF8fD336D244216415Ed0DC2e38c3ca81  (block 2)
+  LendingPool      0x64A6714075b7590f8b07D07a5B431409337de29B  (block 3)
+  CollateralVault  0xD13fF7e92b58C0B221A612abbD33960E6F2D4D72  (block 4)
+  LoanManager      0x9e30cf0E8352128E9e8fD441e679cc8846355CB6  (block 5)
+Granting roles ...
+Saved deployments/localhost.json
+Exported 5 ABIs to shared/abis
+Done.

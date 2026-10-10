@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install
+      - run: npm run build:contracts
+      - run: npm test
+      - name: Gas report
+        run: npm run test:gas
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gas-report
+          path: docs/gas-report.txt
+      - name: Static analysis (Slither)
+        run: |
+          pip install -r requirements-dev.txt
+          solc-select install 0.8.24 && solc-select use 0.8.24
+          slither . --config-file slither.config.json --json docs/slither-report.json || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: slither-report
+          path: docs/slither-report.json
+          if-no-files-found: ignore
+
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+        working-directory: backend
+      - run: npm test
+        working-directory: backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+
+  model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: pip install -r requirements.txt
+      - run: python ml/train_model.py
+      - name: JS scorer must reproduce the Python reference vectors
+        run: node --test backend/test/scoring.test.js

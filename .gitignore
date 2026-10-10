@@ -1,0 +1,18 @@
+node_modules/
+.env
+.env.local
+backend/.env
+frontend/.env
+cache/
+artifacts/
+typechain-types/
+coverage/
+coverage.json
+dist/
+*.sqlite
+*.sqlite3
+__pycache__/
+.DS_Store
+# generated deployment files are committed on purpose for the shared testnet, local ones are not
+deployments/localhost.json
+deployments/hardhat.json

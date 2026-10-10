@@ -1,0 +1,7 @@
+date: 2026-10-09T22:38:02+08:00
+Ubuntu 22.04.5 LTS
+6.18.40.1-microsoft-standard-WSL2
+node v20.20.2  npm 10.8.2
+conda env: microlend
+Python 3.12.15
+which python: /home/catjlx/miniconda3/envs/microlend/bin/python

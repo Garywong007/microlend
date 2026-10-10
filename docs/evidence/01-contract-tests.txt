@@ -1,0 +1,80 @@
+
+> microlend@1.0.0 test
+> hardhat test
+
+Compiled 2 Solidity files successfully (evm target: paris).
+
+
+  CreditRegistry
+    ✔ treats unscored wallets as tier 0 (starter terms) (795ms)
+    ✔ maps attested scores to the right tiers
+    ✔ only SCORER_ROLE can submit scores directly
+    ✔ rejects out-of-range scores and bad expiries
+    ✔ falls back to tier 0 once the attestation expires
+    EIP-712 signed attestations
+      ✔ accepts a scorer signature submitted by the borrower and consumes the nonce
+      ✔ cannot be replayed
+      ✔ rejects signatures from wallets without SCORER_ROLE and tampered scores
+    history bonus (progressive credit)
+      ✔ on-time repayment raises the effective score and is written to the profile
+      ✔ only the LoanManager may write loan outcomes
+    admin controls
+      ✔ admin can block / unblock a borrower
+      ✔ admin can retune tiers but not break their ordering
+
+  LendingPool
+    deposits and withdrawals
+      ✔ first deposit mints shares 1:1 minus the permanently locked minimum
+      ✔ second depositor gets shares at the current price
+      ✔ withdraw burns shares and pays out the proportional assets
+      ✔ rejects zero amounts, zero shares and over-withdrawals
+      ✔ cannot withdraw cash that is currently lent out
+    access control and safety
+      ✔ only the LoanManager role can disburse, record repayments and losses
+      ✔ recordRepayment refuses to book principal or interest the pool does not hold
+      ✔ pause blocks deposits but not withdrawals
+      ✔ enforces the utilization cap
+    reserve and interest
+      ✔ repayment grows lender value and diverts reserveBps of the interest to the reserve
+      ✔ admin can fund the reserve; others cannot
+      ✔ validates reserve and utilization parameters
+
+  LoanManager
+    happy path: apply -> approve -> collateral -> disburse -> repay
+      ✔ runs the full lifecycle and keeps all four contracts consistent (146ms)
+      ✔ unscored borrowers get starter terms: 100 limit, 24% APR, 20% collateral
+      ✔ tier 3 borrowers need no collateral
+      ✔ late repayment inside the grace period is accepted but not counted as on-time
+    progressive credit
+      ✔ one on-time loan unlocks a bigger limit and less collateral without a new score
+    validation and access control
+      ✔ rejects bad terms and a second open loan
+      ✔ blocked borrowers cannot apply
+      ✔ only officers approve/reject; approvals can be smaller but never larger than requested
+      ✔ officers cannot approve their own application
+      ✔ rejection frees the borrower slot
+      ✔ cancelling after posting collateral refunds it
+      ✔ cancel is borrower-only
+      ✔ disburse needs collateral and an authorised caller; officers may disburse for the borrower
+      ✔ approvals expire after 7 days but can still be cancelled
+      ✔ only the borrower can repay, amounts must be positive, and only active loans can be repaid
+      ✔ unknown loan ids revert
+    pausing
+      ✔ pause stops new business but never blocks repayment
+    audit trail
+      ✔ auditors can attach notes to existing loans; nobody else can
+    default and the loss waterfall (collateral -> reserve -> lenders)
+      ✔ cannot be declared before due + grace; afterwards anyone can do it
+      ✔ collateral first, then reserve, then lenders share the remaining loss
+      ✔ surplus collateral goes back to the borrower after a partly repaid loan defaults
+      ✔ an uncollateralised tier-3 default is absorbed by the reserve first
+    bookkeeping invariants
+      ✔ vault balance equals totalLocked and pool balance equals reserve + lender cash across many loans
+
+  MockStablecoin (test token)
+    ✔ has 6 decimals and only the owner can mint
+    ✔ faucet pays 1,000 mUSDC and enforces a one-hour cooldown per wallet
+
+
+  49 passing (2s)
+

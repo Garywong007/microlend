@@ -1,0 +1,48 @@
+# Render Blueprint: API (Docker) + Postgres + static frontend.
+# Dashboard -> New -> Blueprint -> pick this repo. Values marked `sync: false` are entered once in the dashboard.
+# Prerequisite: contracts are deployed to Sepolia and deployments/sepolia.json + shared/abis/*.json are committed.
+databases:
+  - name: microlend-db
+    plan: free # Render's free Postgres is deleted after 30 days - fine for a course demo, upgrade for anything longer
+    databaseName: microlend
+    user: microlend
+
+services:
+  - type: web
+    name: microlend-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NETWORK
+        value: sepolia
+      - key: RPC_URL
+        sync: false # Sepolia RPC URL (Infura / Alchemy / public node)
+      - key: PUBLIC_RPC_URL
+        sync: false # RPC URL shown to MetaMask when it asks to add the network (can be the same)
+      - key: EXPLORER_URL
+        value: https://sepolia.etherscan.io
+      - key: SCORER_PRIVATE_KEY
+        sync: false # wallet that holds SCORER_ROLE on CreditRegistry - a dedicated testnet key
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false # the frontend URL, e.g. https://microlend-web.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: microlend-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false" # internal Render connection string; use "true" for an external database URL
+
+  - type: web
+    name: microlend-web
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false # https://microlend-api.onrender.com

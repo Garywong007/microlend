@@ -1,0 +1,203 @@
+{
+  "version": "credit-model-v1",
+  "model_sha256": "6c1b9f011af2d9f5a6727a4578a20337df2b9cb34be2ea652ad82ea815df5c7f",
+  "type": "logistic_regression",
+  "target": "probability of default within the loan term",
+  "intercept": -2.59850134022411,
+  "features": [
+    {
+      "name": "monthly_income_usd",
+      "label": "Monthly income",
+      "description": "USD per month, typical month",
+      "transform": "log1p",
+      "binary": false,
+      "min": 30,
+      "max": 2000,
+      "mean": 5.564449649902603,
+      "std": 0.5549083464649491,
+      "coef": -0.27796929631763306
+    },
+    {
+      "name": "income_volatility",
+      "label": "Income volatility",
+      "description": "0 = very stable, 1 = very unstable",
+      "transform": "none",
+      "binary": false,
+      "min": 0,
+      "max": 1,
+      "mean": 0.42155642857142717,
+      "std": 0.1837142162283279,
+      "coef": 0.3348786204528935
+    },
+    {
+      "name": "years_in_occupation",
+      "label": "Years in current occupation",
+      "description": "years",
+      "transform": "none",
+      "binary": false,
+      "min": 0,
+      "max": 40,
+      "mean": 7.736814285714278,
+      "std": 5.1719833575935175,
+      "coef": -0.21478523253187
+    },
+    {
+      "name": "mobile_money_txn_per_month",
+      "label": "Mobile-money transactions",
+      "description": "count per month (digital footprint)",
+      "transform": "log1p",
+      "binary": false,
+      "min": 0,
+      "max": 200,
+      "mean": 3.388207230175048,
+      "std": 0.3166563189186445,
+      "coef": -0.09151690345747124
+    },
+    {
+      "name": "mobile_money_months_active",
+      "label": "Mobile-money account age",
+      "description": "months active",
+      "transform": "none",
+      "binary": false,
+      "min": 0,
+      "max": 60,
+      "mean": 15.986857142857144,
+      "std": 11.156098850002193,
+      "coef": -0.15272455188884762
+    },
+    {
+      "name": "existing_debt_ratio",
+      "label": "Existing debt payments / income",
+      "description": "ratio, 0.30 = 30% of income",
+      "transform": "none",
+      "binary": false,
+      "min": 0,
+      "max": 1.5,
+      "mean": 0.2783114285714299,
+      "std": 0.1858310450327366,
+      "coef": 0.2939835750494369
+    },
+    {
+      "name": "household_size",
+      "label": "Household size",
+      "description": "people supported",
+      "transform": "none",
+      "binary": false,
+      "min": 1,
+      "max": 12,
+      "mean": 4.581428571428572,
+      "std": 1.8719579403961624,
+      "coef": 0.12001774184134495
+    },
+    {
+      "name": "savings_group_member",
+      "label": "Savings / community group member",
+      "description": "1 = yes, 0 = no",
+      "transform": "none",
+      "binary": true,
+      "min": 0,
+      "max": 1,
+      "mean": 0.4045714285714286,
+      "std": 0.4908089116500071,
+      "coef": -0.28811787468931327
+    }
+  ],
+  "scaling": {
+    "base_score": 620,
+    "base_odds": 15,
+    "pdo": 80,
+    "min_score": 300,
+    "max_score": 900,
+    "factor": 115.41560327111708,
+    "offset": 307.4487523513185
+  },
+  "tier_min_scores": [
+    0,
+    450,
+    600,
+    750
+  ],
+  "metrics": {
+    "auc": 0.6807,
+    "ks": 0.2653,
+    "brier": 0.073,
+    "data": "synthetic"
+  },
+  "test_vectors": [
+    {
+      "input": {
+        "monthly_income_usd": 450,
+        "income_volatility": 0.15,
+        "years_in_occupation": 8,
+        "mobile_money_txn_per_month": 70,
+        "mobile_money_months_active": 30,
+        "existing_debt_ratio": 0.1,
+        "household_size": 3,
+        "savings_group_member": 1
+      },
+      "pd": 0.010394532,
+      "score": 833,
+      "raw_score": 833.285293
+    },
+    {
+      "input": {
+        "monthly_income_usd": 280,
+        "income_volatility": 0.35,
+        "years_in_occupation": 4,
+        "mobile_money_txn_per_month": 35,
+        "mobile_money_months_active": 14,
+        "existing_debt_ratio": 0.25,
+        "household_size": 4,
+        "savings_group_member": 0
+      },
+      "pd": 0.0769454425,
+      "score": 594,
+      "raw_score": 594.209403
+    },
+    {
+      "input": {
+        "monthly_income_usd": 120,
+        "income_volatility": 0.7,
+        "years_in_occupation": 1,
+        "mobile_money_txn_per_month": 5,
+        "mobile_money_months_active": 3,
+        "existing_debt_ratio": 0.6,
+        "household_size": 7,
+        "savings_group_member": 0
+      },
+      "pd": 0.5285960686,
+      "score": 300,
+      "raw_score": 294.2326
+    },
+    {
+      "input": {
+        "monthly_income_usd": 900,
+        "income_volatility": 0.1,
+        "years_in_occupation": 15,
+        "mobile_money_txn_per_month": 120,
+        "mobile_money_months_active": 48,
+        "existing_debt_ratio": 0.05,
+        "household_size": 2,
+        "savings_group_member": 1
+      },
+      "pd": 0.0029346361,
+      "score": 900,
+      "raw_score": 980.117765
+    },
+    {
+      "input": {
+        "monthly_income_usd": 60,
+        "income_volatility": 0.9,
+        "years_in_occupation": 0,
+        "mobile_money_txn_per_month": 0,
+        "mobile_money_months_active": 0,
+        "existing_debt_ratio": 1.2,
+        "household_size": 9,
+        "savings_group_member": 0
+      },
+      "pd": 0.9241436496,
+      "score": 300,
+      "raw_score": 18.906732
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+-r requirements.txt
+slither-analyzer>=0.10
+solc-select>=1.0

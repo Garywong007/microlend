@@ -1,0 +1,56 @@
+{
+  "auc": 0.6806774792996283,
+  "ks": 0.26526967769387166,
+  "brier": 0.07295548341315145,
+  "tiers": [
+    {
+      "tier": 0,
+      "share": 0.0247,
+      "default_rate": 0.3176,
+      "n": 148
+    },
+    {
+      "tier": 1,
+      "share": 0.4325,
+      "default_rate": 0.1156,
+      "n": 2595
+    },
+    {
+      "tier": 2,
+      "share": 0.5045,
+      "default_rate": 0.0496,
+      "n": 3027
+    },
+    {
+      "tier": 3,
+      "share": 0.0383,
+      "default_rate": 0.0087,
+      "n": 230
+    }
+  ],
+  "fairness": {
+    "female": {
+      "approval_rate_group1": 0.9759,
+      "approval_rate_group0": 0.9748,
+      "disparate_impact_ratio": 0.9989,
+      "auc_group1": 0.6901,
+      "auc_group0": 0.672,
+      "observed_default_group1": 0.0833,
+      "observed_default_group0": 0.0831,
+      "mean_pred_default_group1": 0.0806,
+      "mean_pred_default_group0": 0.0846
+    },
+    "rural": {
+      "approval_rate_group1": 0.9599,
+      "approval_rate_group0": 0.9875,
+      "disparate_impact_ratio": 0.972,
+      "auc_group1": 0.6815,
+      "auc_group0": 0.6763,
+      "observed_default_group1": 0.0912,
+      "observed_default_group0": 0.0768,
+      "mean_pred_default_group1": 0.0962,
+      "mean_pred_default_group0": 0.0718
+    }
+  }
+}
+model_sha256: 6c1b9f011af2d9f5a6727a4578a20337df2b9cb34be2ea652ad82ea815df5c7f

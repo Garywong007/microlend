@@ -1,0 +1,14 @@
+node_modules
+**/node_modules
+artifacts
+cache
+typechain-types
+coverage
+frontend
+test
+docs
+.git
+.env
+**/.env
+*.sqlite
+backend/data

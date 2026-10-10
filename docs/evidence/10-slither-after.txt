@@ -1,0 +1,25 @@
+
+> microlend@1.0.0 slither
+> slither . --config-file slither.config.json
+
+'npx hardhat clean' running (wd: /home/catjlx/microlend)
+'npx hardhat clean --global' running (wd: /home/catjlx/microlend)
+'npx hardhat compile --force' running (wd: /home/catjlx/microlend)
+INFO:Detectors:
+Detector: incorrect-equality
+LendingPool.convertToAssets(uint256) (contracts/LendingPool.sol#223-225) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#224)
+LendingPool.convertToShares(uint256) (contracts/LendingPool.sol#217-221) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#218)
+LendingPool.convertToShares(uint256) (contracts/LendingPool.sol#217-221) uses a dangerous strict equality:
+	- la == 0 (contracts/LendingPool.sol#220)
+LendingPool.deposit(uint256) (contracts/LendingPool.sol#78-96) uses a dangerous strict equality:
+	- assetsBefore == 0 (contracts/LendingPool.sol#87)
+LendingPool.deposit(uint256) (contracts/LendingPool.sol#78-96) uses a dangerous strict equality:
+	- shares == 0 (contracts/LendingPool.sol#90)
+LendingPool.sharePrice() (contracts/LendingPool.sol#213-215) uses a dangerous strict equality:
+	- totalShares == 0 (contracts/LendingPool.sol#214)
+LendingPool.utilizationBps() (contracts/LendingPool.sol#207-210) uses a dangerous strict equality:
+	- la == 0 (contracts/LendingPool.sol#209)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+INFO:Slither:. analyzed (34 contracts with 99 detectors), 7 result(s) found

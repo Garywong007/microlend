@@ -1,0 +1,30 @@
+
+> microlend@1.0.0 seed:local
+> hardhat run scripts/seed.js --network localhost
+
+Funding wallets with mock stablecoin ...
+Lenders deposit, admin funds the first-loss reserve ...
+B1: scored 720, repays a 500 loan on time -> earns history bonus
+B5: scored 480, borrows 200 and defaults -> collateral + reserve waterfall
+B1 comes back: tier upgrade, new loan of 700 is active
+B2: scored 580, active loan of 250
+B3: unscored, pending application of 80 (shows in the officer queue)
+B4: scored 650, approved with collateral posted, not yet disbursed
+B6: application rejected by the officer
+
+Demo accounts (Hardhat default mnemonic - public, local use only):
+  # 0  0x58A57ed9d8d624cBD12e2C467D34787555bB1b25  admin
+  # 1  0x0D3eB21b6b21833A4939Cfff4810E9AE0758e12C  officer
+  # 2  0xe42f4612e154153B68e241e8FDe337e0c4dD6bBD  auditor
+  # 3  0x2F07c220dC62CE9531bC44B695A6D93578806d8d  scorer (backend key)
+  # 4  0x1454168e82efA260f49a6F86612cc6414Ba633e9  lender A
+  # 5  0x4fb070eF70961D204961c69B954B99808b9694BC  lender B
+  # 6  0x603049dcd328D58c9053eBE34F1692c0fac683f8  borrower B1 (repaid, tier up)
+  # 7  0x3eb84b6a7B4707C20B6bca41b537055B61E84764  borrower B2 (active)
+  # 8  0xa642b057F48020e850581a05Fe2Dde506EabD50D  borrower B3 (pending)
+  # 9  0x61e3A11876506C169a25c90a6f64fEA5384d10f0  borrower B4 (approved)
+  #10  0xF51B647eda3277c35436f52C8A1De50308C08f9D  borrower B5 (defaulted)
+  #11  0xC529e5f8D5b162BC5dC9A6C546295cB9c6F0F41F  borrower B6 (rejected)
+
+Import accounts into MetaMask with `npx hardhat node` private keys (index shown above).
+Pool lender assets: 30008.876712 mUSDC, reserve: 317.69863
