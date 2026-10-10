@@ -17,8 +17,8 @@ Record the actual results here once you have run them:
 | Contract tests passing | 49/49 (47 in the three main suites + 2 for the test token); measured on Ubuntu 22.04 (WSL2), Node 20.20 |
 | Statement / branch / function / line coverage (`npm run coverage`, 49 tests, after the Slither fixes) | 97.1% / 75.9% / 96.7% / 98.3%. Every contract has 100% statement coverage except `LendingPool` (92.3%) and `LoanManager` (97.9%). Weakest area is branch coverage: `CollateralVault` 58.3%, `LendingPool` 69.5%. Uncovered lines: LendingPool 169-170, 208-209; LoanManager 356 |
 | Backend tests passing | 16/16 |
-| Slither: high / medium / low findings, and decisions | |
-| Frontend production build | OK / errors |
+| Slither findings and decisions | 10 findings before the fixes, 7 after; every finding triaged (fixed or accepted with a reason), see `docs/SLITHER_TRIAGE.md` |
+| Frontend production build | OK (`vite build`, 986 modules, JS bundle 865 KB / 270 KB gzip) |
 
 ## 2. Manual end-to-end scenarios (use for the demo and the "scenario-based evaluation")
 
@@ -100,3 +100,19 @@ npm run coverage            # solidity-coverage (viaIR is switched off automatic
 cd backend && npm test      # scoring + API tests
 python3 ml/train_model.py && python3 ml/simulate_portfolio.py
 ```
+
+## 6. Pre-deployment checks (local, before Sepolia)
+
+| Check | Result |
+|---|---|
+| Backend on PostgreSQL 16 (Docker) against the local chain | Tables created, 90 events indexed (lastBlock 88 = head), `/api/health`, `/api/stats`, `/api/pool/history` return the same figures as the SQLite run |
+| Wallet login on PostgreSQL | Nonce issued and stored in `auth_nonces`; forged signature rejected with `Invalid signature` (no server error) |
+| Backend Docker image (`docker build -f backend/Dockerfile .`) | Builds successfully (node:22-slim, native module compiled, `ml/model.json` and `deployments/` included) |
+
+## 6. Pre-deployment checks (local, before Sepolia)
+
+| Check | Result |
+|---|---|
+| Backend on PostgreSQL 16 (Docker) against the local chain | Tables created, 90 events indexed (lastBlock 88 = head), `/api/health`, `/api/stats`, `/api/pool/history` return the same figures as the SQLite run |
+| Wallet login on PostgreSQL | Nonce issued and stored in `auth_nonces`; forged signature rejected with `Invalid signature` (no server error) |
+| Backend Docker image (`docker build -f backend/Dockerfile .`) | Builds successfully (node:22-slim, native module compiled, `ml/model.json` and `deployments/` included) |
