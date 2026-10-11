@@ -1,0 +1,50 @@
+
+> microlend@1.0.0 deploy:sepolia
+> hardhat run scripts/deploy.js --network sepolia
+
+Deploying to sepolia as 0xC0f1C1a59D70F3afD12776c86811664B08AeEC80
+  MockStablecoin   0x882b02C3eeaC59BC42C283c6C8d32BaA3723B2d1  (block 11890702)
+  CreditRegistry   0xa80e874cA4C8C33b7c1887370005823f4cBe248F  (block 11890704)
+  LendingPool      0x576358F66d8d521bcd02A472Ef87F903f1c4f410  (block 11890706)
+  CollateralVault  0x9c7b61301E2573f0Ab52aA51669e496E1Cf10B31  (block 11890708)
+  LoanManager      0x9279A53E8E93cA960f682c3bAEd6cCC940aE0b69  (block 11890710)
+Granting roles ...
+Saved deployments\sepolia.json
+Exported 5 ABIs to shared\abis
+Waiting for confirmations before verification ...
+Successfully submitted source code for contract
+contracts/MockStablecoin.sol:MockStablecoin at 0x882b02C3eeaC59BC42C283c6C8d32BaA3723B2d1
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract MockStablecoin on the block explorer.
+https://sepolia.etherscan.io/address/0x882b02C3eeaC59BC42C283c6C8d32BaA3723B2d1#code
+
+Successfully submitted source code for contract
+contracts/CreditRegistry.sol:CreditRegistry at 0xa80e874cA4C8C33b7c1887370005823f4cBe248F
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract CreditRegistry on the block explorer.
+https://sepolia.etherscan.io/address/0xa80e874cA4C8C33b7c1887370005823f4cBe248F#code
+
+Successfully submitted source code for contract
+contracts/LendingPool.sol:LendingPool at 0x576358F66d8d521bcd02A472Ef87F903f1c4f410
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract LendingPool on the block explorer.
+https://sepolia.etherscan.io/address/0x576358F66d8d521bcd02A472Ef87F903f1c4f410#code
+
+Successfully submitted source code for contract
+contracts/CollateralVault.sol:CollateralVault at 0x9c7b61301E2573f0Ab52aA51669e496E1Cf10B31
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract CollateralVault on the block explorer.
+https://sepolia.etherscan.io/address/0x9c7b61301E2573f0Ab52aA51669e496E1Cf10B31#code
+
+Successfully submitted source code for contract
+contracts/LoanManager.sol:LoanManager at 0x9279A53E8E93cA960f682c3bAEd6cCC940aE0b69
+for verification on the block explorer. Waiting for verification result...
+
+Successfully verified contract LoanManager on the block explorer.
+https://sepolia.etherscan.io/address/0x9279A53E8E93cA960f682c3bAEd6cCC940aE0b69#code
+
+Done.
