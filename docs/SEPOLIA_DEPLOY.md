@@ -2,6 +2,8 @@
 
 One person (the **deployer**) deploys once; everybody else tests against that deployment with their own wallets. Do not let several people deploy: each deployment creates a new set of contracts and the app only follows one.
 
+For the existing live deployment, use [the Chinese team handover](TEAM_HANDOVER.md). Both Render services currently follow `Garywong007/microlend` branch `main`, so merging into `catjlx/microlend` alone does not update the live services.
+
 ## 0. What you need
 
 | Item | Who | How |
@@ -50,14 +52,15 @@ If `ETHERSCAN_API_KEY` is set the script also tries to verify the source; if it 
 | Variable | Value |
 |---|---|
 | `RPC_URL` | the same Sepolia RPC URL |
-| `PUBLIC_RPC_URL` | same (shown to MetaMask when it asks to add the network) |
+| `PUBLIC_RPC_URL` | a credential-free public Sepolia RPC, e.g. `https://ethereum-sepolia-rpc.publicnode.com`; this value is exposed to browsers, so do not copy a private provider URL containing an API key |
 | `SCORER_PRIVATE_KEY` | the scorer **private key** from step 1 |
 | `CORS_ORIGIN` | the frontend URL, for example `https://microlend-web.onrender.com` (set it after the first deploy, then redeploy the API) |
+| `INDEXER_CHUNK` (API) | `10` for the provider configuration used by the current deployment; the code default is `2000`, which previously exceeded its `eth_getLogs` block-range limit |
 | `VITE_API_URL` (static site) | the API URL, for example `https://microlend-api.onrender.com` |
 
 3. Check `https://<api>/api/health`. It should report the Sepolia chain id `11155111`. Then open the frontend URL.
 
-Notes: the free API service sleeps after inactivity (the first request takes about 30 seconds) and the free Postgres is deleted after 30 days. Both are fine for a course demo; open the site a minute before presenting.
+Notes: according to [Render's Free documentation](https://render.com/docs/free) (checked 2026-10-11), a Free web service sleeps after 15 minutes without inbound traffic and can take about one minute to wake. Free Postgres expires after 30 days; there is then a 14-day upgrade grace period before deletion. Check the database's actual expiration date in the dashboard and export needed data before expiry. Open the site before presenting.
 
 ## 4. Smoke test (about 15 minutes)
 

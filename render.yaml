@@ -3,7 +3,7 @@
 # Prerequisite: contracts are deployed to Sepolia and deployments/sepolia.json + shared/abis/*.json are committed.
 databases:
   - name: microlend-db
-    plan: free # Render's free Postgres is deleted after 30 days - fine for a course demo, upgrade for anything longer
+    plan: free # Expires after 30 days; see Render's Free docs for the upgrade grace period and deletion policy.
     databaseName: microlend
     user: microlend
 
@@ -23,7 +23,7 @@ services:
       - key: RPC_URL
         sync: false # Sepolia RPC URL (Infura / Alchemy / public node)
       - key: PUBLIC_RPC_URL
-        sync: false # RPC URL shown to MetaMask when it asks to add the network (can be the same)
+        sync: false # Public, credential-free RPC URL exposed to browsers; never use a private provider API key here.
       - key: EXPLORER_URL
         value: https://sepolia.etherscan.io
       - key: SCORER_PRIVATE_KEY

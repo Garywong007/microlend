@@ -1,0 +1,42 @@
+{
+  "checkedOn": "2026-10-11",
+  "scope": "Read-only public HTTP checks during team handover; no wallet signatures or business transactions performed",
+  "frontend": {
+    "url": "https://microlend-web.onrender.com",
+    "httpStatus": 200,
+    "entryAsset": "/assets/index-CTDzI1Zy.js",
+    "entryAssetStatus": 200,
+    "expectedApiBaseFound": true
+  },
+  "backend": {
+    "url": "https://microlend-api.onrender.com",
+    "healthStatus": 200,
+    "configStatus": 200,
+    "statsStatus": 200,
+    "allowedOrigin": "https://microlend-web.onrender.com",
+    "network": "sepolia",
+    "chainId": 11155111,
+    "indexer": {
+      "lastBlock": 11892697,
+      "head": 11892699,
+      "lag": 2,
+      "error": null
+    },
+    "loanCount": 0,
+    "scoreRequestCount": 0,
+    "contractsMatchDeploymentFile": true,
+    "scorerMatchesDeploymentFile": true
+  },
+  "renderSource": {
+    "repository": "Garywong007/microlend",
+    "branch": "main",
+    "services": ["microlend-api", "microlend-web"],
+    "basis": "Deployment owner confirmed both services' repository and branch in this handover conversation; authenticated dashboard not independently inspected"
+  },
+  "limitations": [
+    "Snapshot only; live blocks and service state change over time",
+    "No sensitive RPC URLs, private keys, database credentials or JWT secrets included",
+    "A null indexer error at check time does not prove the error-response credential exposure has been fixed",
+    "Complete Sepolia lending lifecycle remains to be tested"
+  ]
+}

@@ -2,6 +2,17 @@
 
 SC6113 group project. A full-stack DApp where lenders fund a transparent pool, borrowers without bank records build a reusable on-chain credit history, officers approve loans, and auditors can verify every event.
 
+## Team handover / 小组交接入口
+
+[中文交接文档：当前进度、地址、配置、权限和后续任务](docs/TEAM_HANDOVER.md)
+
+* **Live frontend:** https://microlend-web.onrender.com
+* **Live API:** https://microlend-api.onrender.com ([health check](https://microlend-api.onrender.com/api/health))
+* **Team repository:** [catjlx/microlend](https://github.com/catjlx/microlend)
+* **Current Render source:** [Garywong007/microlend](https://github.com/Garywong007/microlend), branch `main`, for both services (confirmed by the deployment owner on 2026-10-11). Changes merged into the team repository need to be synced to this fork before Render can deploy them.
+
+Public addresses and configuration are documented; private keys and service credentials must be handed over privately and are excluded from Git.
+
 * **Smart contracts** (Solidity 0.8.24, OpenZeppelin 5): `CreditRegistry`, `LendingPool`, `CollateralVault`, `LoanManager` (+ test token `MockStablecoin`)
 * **Backend** (Node 20, Express, knex, SQLite/PostgreSQL, ethers v6): wallet-signature login, REST API, chain event indexer, off-chain credit scoring service that signs EIP-712 score attestations
 * **Frontend** (React 18, Vite, ethers v6, Recharts, MetaMask): role-based dashboards for borrower, lender, credit officer, auditor and admin
